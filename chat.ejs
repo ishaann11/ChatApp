@@ -1,0 +1,153 @@
+<%- include('partials/header') %>
+
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="friends-list">
+        <h4>Friends</h4>
+        <ul class="list-group">
+          <li class="list-group-item friend" data-friend="Ishaan">
+            <img src="/css/profile-icon-design-free-vector.jpg" alt="Ishaan" class="profile-pic"> Ishaan
+          </li>
+          <li class="list-group-item friend" data-friend="Ridhi">
+            <img src="/css/profile-icon-design-free-vector.jpg" alt="Ridhi" class="profile-pic"> Ridhi
+          </li>
+          <li class="list-group-item friend" data-friend="Vikash">
+            <img src="/css/profile-icon-design-free-vector.jpg" alt="Vikash" class="profile-pic"> Vikash
+          </li>
+          <li class="list-group-item friend" data-friend="Muskan">
+            <img src="/css/profile-icon-design-free-vector.jpg" alt="Muskan" class="profile-pic"> Muskan
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6 offset-md-1">
+      <div class="chat-container">
+        <div class="chat-header">
+          <h3 id="chat-with">Chat Room</h3>
+        </div>
+        <div class="chat-box" id="chat-box">
+          <!-- Messages will be displayed here -->
+        </div>
+        <div class="chat-input">
+          <form id="chat-form">
+            <input type="text" id="message" class="form-control" placeholder="Type a message..." required>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
+
+<style>
+  body {
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .friends-list {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  .friends-list h4 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .list-group-item:hover {
+    background-color: #f1f1f1;
+  }
+
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .chat-container {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .chat-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .chat-box {
+    height: 300px;
+    width: 100%;
+    max-width: 700px;
+    overflow-y: scroll;
+    padding: 15px;
+    background-color: #f8f9fa;
+    margin: 0 auto; /* Center the chat box */
+  }
+
+  .chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .chat-input form {
+    display: flex;
+    width: 100%;
+  }
+
+  #message {
+    flex-grow: 1;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+  }
+
+  .btn-primary {
+    border-radius: 10px;
+    padding: 10px 20px;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.friend').forEach(friend => {
+    friend.addEventListener('click', function() {
+      const friendName = this.getAttribute('data-friend');
+      document.getElementById('chat-with').textContent = 'Chat with ' + friendName;
+      
+      document.getElementById('chat-box').innerHTML = '';
+      
+    });
+  });
+
+  document.getElementById('chat-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const messageInput = document.getElementById('message');
+    const message = messageInput.value;
+
+    if (message.trim() !== '') {
+      const chatBox = document.getElementById('chat-box');
+      const newMessage = document.createElement('div');
+      newMessage.classList.add('message');
+      newMessage.textContent = message;
+      chatBox.appendChild(newMessage);
+      chatBox.scrollTop = chatBox.scrollHeight;
+      messageInput.value = '';
+    }
+  });
+</script>
